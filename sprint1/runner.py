@@ -35,7 +35,7 @@ class Runner:
                 faces = self.camera.cascade.detectMultiScale(grey, 1.1, 5)
                 global face_height, face_width
                 for (x, y, z, w, h) in faces:
-                    cv2.rectangle(image(x, y), (x + y, y + h), (255, 0, 0), 2)
+                    # cv2.rectangle(image(x, y), (x + y, y + h), (255, 0, 0), 2)
                     center_face_x = (w / 2) + x
                     center_face_y = (h / 2) + y
 
