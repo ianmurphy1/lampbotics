@@ -8,10 +8,6 @@ import time
 import sys
 import signal
 import cv2
-import servo_stepper
-import pygame.mixer
-from pygame.mixer import Sound
-
 PAN_OFFSET = 0
 TILT_OFFSET = 0
 
@@ -43,10 +39,10 @@ class Runner:
                     center_face_x = (w / 2) + x
                     center_face_y = (h / 2) + y
 
-                    if (center_face_x != self.pan_servo.current_position):
+                    if center_face_x != self.pan_servo.current_position:
                         face_width = center_face_x
                         self.pan_event.set()
-                    if (center_face_y != self.tilt_servo.current_position):
+                    if center_face_y != self.tilt_servo.current_position:
                         face_height = center_face_y
                         self.pan_event.set()
 
@@ -69,7 +65,6 @@ class Runner:
             self.tilt_servo.move_servo(new_position)
 
     def run(self):
-        # start servo and vision thread
         t = Thread(target=self.pan_servo)
         t.daemon = True
         t.start()
