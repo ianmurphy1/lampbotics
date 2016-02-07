@@ -35,7 +35,7 @@ class Runner:
                 faces = self.camera.cascade.detectMultiScale(grey, 1.1, 5)
                 global face_height, face_width
                 for (x, y, z, w, h) in faces:
-                    # cv2.rectangle(image(x, y), (x + y, y + h), (255, 0, 0), 2)
+                    cv2.rectangle(image(x, y), (x + y, y + h), (255, 0, 0), 2)
                     center_face_x = (w / 2) + x
                     center_face_y = (h / 2) + y
 
@@ -48,21 +48,19 @@ class Runner:
 
                 self.rawCapture.truncate(0)
 
-
-
     def pan_servo(self):
         while True:
             self.pan_event.wait()
             self.pan_event.clear()
-            new_position = convert_for_pan(face_width)
-            self.pan_servo.move_servo(new_position)
+            # new_position = convert_for_pan(face_width)
+            # self.pan_servo.move_servo(new_position)
 
     def tilt_servo(self):
         while True:
             self.tilt_event.wait()
             self.tilt_event.clear()
-            new_position = convert_for_pan(face_height)
-            self.tilt_servo.move_servo(new_position)
+            # new_position = convert_for_pan(face_height)
+            # self.tilt_servo.move_servo(new_position)
 
     def run(self):
         t = Thread(target=self.pan_servo)
@@ -81,7 +79,7 @@ class Runner:
             pass
 
 
-def convert_for_tilt(num):
-
-def convert_for_pan(num):
+# def convert_for_tilt(num):
+#
+# def convert_for_pan(num):
 
