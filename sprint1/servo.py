@@ -13,6 +13,7 @@ class Servo:
         self.pwm = None
 
     def setup_servo(self):
+        GPIO.setmode(GPIO.BOARD)
         GPIO.setup(self.channel, GPIO.OUT)
         self.pwm = GPIO.PWM(self.channel, self.freq)
         self.pwm.start(6)
