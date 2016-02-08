@@ -36,4 +36,4 @@ class Servo:
 
                 else:
                     self.current_position = self.current_position
-        self.current_position = degrees
+
