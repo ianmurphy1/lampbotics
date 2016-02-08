@@ -36,5 +36,5 @@ class Servo:
                     self.pwm.ChangeDutyCycle(DutyCycle1)
 
                 else:
-                    self.current_position = self.current_position
+                    self.current_position = desired_position1
 
