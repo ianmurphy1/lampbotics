@@ -8,12 +8,12 @@ import time
 import sys
 import signal
 import cv2
+
 PAN_OFFSET = 0
 TILT_OFFSET = 0
 
-face_width = 0
-face_height = 0
-focal = 0
+face_center = []
+
 
 class Runner:
     def __init__(self):
@@ -40,10 +40,10 @@ class Runner:
                         center_face_y = (h / 2) + y
 
                         if center_face_x != self.pan_servo.current_position:
-                           face_width = center_face_x
-                           self.pan_event.set()
+                            face_center[0] = center_face_x
+                            self.pan_event.set()
                         if center_face_y != self.tilt_servo.current_position:
-                            face_height = center_face_y
+                            face_center[1] = center_face_y
                             self.pan_event.set()
 
                     self.rawCapture.truncate(0)
