@@ -58,6 +58,7 @@ class Runner:
 
     def pan_servo(self):
         while True:
+            global face_center
             with self.lock:
                 self.pan_event.wait()
                 self.pan_event.clear()
@@ -66,6 +67,7 @@ class Runner:
 
     def tilt_servo(self):
         while True:
+            global face_center
             with self.lock:
                 self.tilt_event.wait()
                 self.tilt_event.clear()
