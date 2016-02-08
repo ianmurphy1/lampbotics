@@ -103,3 +103,5 @@ def convert_for_tilt(num):
 def convert_for_pan(num):
     return int(round((num / TILT_DEGREES_PER_PIXEL) + TILT_OFFSET, -1))
 
+if __name__ == '__main__':
+    Runner().run()
