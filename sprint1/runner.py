@@ -21,7 +21,7 @@ face_center = [FRAME_WIDTH / 2, FRAME_HEIGHT / 2]
 class Runner:
     def __init__(self):
         self.pan_servo = Servo(PAN_CHANNEL, CHANNEL_FREQUENCY)
-        self.tilt_servo = Servo(PAN_CHANNEL, CHANNEL_FREQUENCY)
+        self.tilt_servo = Servo(TITLE_CHANNEL, CHANNEL_FREQUENCY)
         self.camera = Camera()
         self.rawCapture = self.camera.rawCapture
         self.pan_event = Event()
