@@ -12,12 +12,14 @@ class Servo:
         self.time_to_move = 3
         self.pwm = GPIO.PWM(self.channel, self.freq)
 
+    @classmethod
     def setup_servo(self):
         GPIO.setmode(GPIO.BOARD)
         GPIO.setup(self.channel, GPIO.OUT)
         self.pwm.start(6)
         self.move_servo(START_POSITION)
 
+    @classmethod
     def move_servo(self, degrees):
         for i in range(0, 180):
             desired_position1 = degrees
