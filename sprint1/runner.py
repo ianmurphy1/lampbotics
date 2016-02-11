@@ -57,19 +57,21 @@ class Runner:
 
                     self.rawCapture.truncate(0)
 
-    def pan_servo(self):
+    def pan_servo_thread(self):
         while True:
             global face_center
             with self.lock:
+                print 'pan thread'
                 self.pan_event.wait()
                 self.pan_event.clear()
                 new_position = convert_for_pan(face_center[0])
                 self.pan_servo_move(new_position)
 
-    def tilt_servo(self):
+    def tilt_servo_thread(self):
         while True:
             global face_center
             with self.lock:
+                print 'pan thread'
                 self.tilt_event.wait()
                 self.tilt_event.clear()
                 new_position = convert_for_tilt(face_center[1])
@@ -82,11 +84,11 @@ class Runner:
         t.daemon = True
         t.start()
 
-        t = Thread(target=self.pan_servo)
+        t = Thread(target=self.pan_servo_thread)
         t.daemon = True
         t.start()
 
-        t = Thread(target=self.tilt_servo)
+        t = Thread(target=self.tilt_servo_thread)
         t.daemon = True
         t.start()
 
