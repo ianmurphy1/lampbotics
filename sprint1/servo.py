@@ -23,8 +23,8 @@ class Servo:
         self.pwm = GPIO.PWM(self.channel, self.freq)
 
     def setup_servo(self):
-        self.move_servo(START_POSITION)
         self.pwm.start(6)
+        self.move_servo(START_POSITION)
 
     def move_servo(self, degrees):
         print "Moving servo to " + str(degrees)
