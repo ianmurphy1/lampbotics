@@ -2,12 +2,6 @@ from servo import *
 from camera import *
 from camera import FRAME_HEIGHT, FRAME_WIDTH
 from threading import Thread, Lock, Event
-from picamera.array import PiRGBArray
-from picamera import PiCamera
-import RPi.GPIO as GPIO
-import time
-import sys
-import signal
 import cv2
 
 PAN_CHANNEL = 11
@@ -40,7 +34,7 @@ class Runner:
             for frame in self.camera.camera.capture_continuous(self.rawCapture, format="bgr", use_video_port=True):
                 with self.lock:
                     image = frame.array
-                    grey = cv2.cvtColor(image, cv2.COLOR.BGR2GRAY)
+                    grey = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
                     faces = self.camera.cascade.detectMultiScale(grey, 1.1, 5)
                     for (x, y, z, w, h) in faces:
                         cv2.rectangle(image(x, y), (x + y, y + h), (255, 0, 0), 2)
@@ -76,15 +70,16 @@ class Runner:
 
     def run(self):
         self.setup_servos()
+
+        t = Thread(target=self.detect)
+        t.daemon = True
+        t.start()
+
         t = Thread(target=self.pan_servo)
         t.daemon = True
         t.start()
 
         t = Thread(target=self.tilt_servo)
-        t.daemon = True
-        t.start()
-
-        t = Thread(target=self.detect)
         t.daemon = True
         t.start()
 
