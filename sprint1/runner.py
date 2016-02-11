@@ -104,11 +104,13 @@ class Runner:
 
 
 def convert_for_tilt(num):
-    return int(round((num / PAN_DEGREES_PER_PIXEL) + PAN_OFFSET, -1))
+    print "got here"
+    return int(round((num / PAN_DEGREES_PER_PIXEL) + TILT_OFFSET, -1))
 
 
 def convert_for_pan(num):
-    return int(round((num / TILT_DEGREES_PER_PIXEL) + TILT_OFFSET, -1))
+    print "got tilt"
+    return int(round((num / TILT_DEGREES_PER_PIXEL) + PAN_OFFSET, -1))
 
 if __name__ == '__main__':
     Runner().run()
