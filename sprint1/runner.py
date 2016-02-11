@@ -43,6 +43,11 @@ class Runner:
                         center_face_x = (w / 2) + x
                         center_face_y = (h / 2) + y
 
+                        print "Pic center x: " + str(center_face_x)
+                        print "Pic center y: " + str(center_face_y)
+                        print "Old center x: " + str(face_center[0])
+                        print "Old center y: " + str(face_center[1])
+
                         if center_face_x != face_center[0]:
                             face_center[0] = center_face_x
                             self.pan_event.set()
