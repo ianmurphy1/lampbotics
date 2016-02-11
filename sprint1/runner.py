@@ -53,7 +53,7 @@ class Runner:
                             self.pan_event.set()
                         if center_face_y != face_center[1]:
                             face_center[1] = center_face_y
-                            self.pan_event.set()
+                            self.tilt_event.set()
 
                     self.rawCapture.truncate(0)
 
@@ -75,7 +75,8 @@ class Runner:
                 self.tilt_event.wait()
                 self.tilt_event.clear()
                 new_position = convert_for_tilt(face_center[1])
-                self.tilt_servo_move(new_position)
+                print "new pos" + new_position
+                self.tilt_servo.move_servo(new_position)
 
     def run(self):
         self.setup_servos()

@@ -15,13 +15,6 @@ class Servo:
         self.time_to_move = 3
         self.pwm = GPIO.PWM(self.channel, self.freq)
 
-    def __call__(self, *args, **kwargs):
-        GPIO.setmode(GPIO.BOARD)
-        GPIO.setup(self.channel, GPIO.OUT)
-        self.current_position = 0
-        self.time_to_move = 3
-        self.pwm = GPIO.PWM(self.channel, self.freq)
-
     def setup_servo(self):
         self.pwm.start(6)
         self.move_servo(START_POSITION)
