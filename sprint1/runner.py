@@ -35,7 +35,7 @@ class Runner:
                 with self.lock:
                     image = frame.array
                     grey = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-                    faces = self.camera.camera.cascade.detectMultiScale(grey, 1.1, 5)
+                    faces = self.camera.cascade.detectMultiScale(grey, 1.1, 5)
                     for (x, y, z, w, h) in faces:
                         cv2.rectangle(image(x, y), (x + y, y + h), (255, 0, 0), 2)
                         center_face_x = (w / 2) + x
