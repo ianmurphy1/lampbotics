@@ -22,7 +22,7 @@ class Servo:
     def move_servo(self, degrees):
         for i in range(0, 180):
             desired_position1 = degrees
-            for i in range(0, self.time_to_move):
+            for j in range(0, self.time_to_move):
                 while self.current_position < desired_position1:
                     self.current_position = self.current_position + 1
                     time.sleep(0.016)
