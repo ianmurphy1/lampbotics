@@ -9,6 +9,7 @@ FRAME_HEIGHT = 300
 FRAME_RATE = 60
 FRAME_SIZE = ( FRAME_WIDTH, FRAME_HEIGHT )
 
+
 class Camera:
 
     def __init__(self):

@@ -1,5 +1,5 @@
 from servo import *
-from camera import Camera
+from camera import *
 from camera import FRAME_HEIGHT, FRAME_WIDTH
 from threading import Thread, Lock, Event
 from picamera.array import PiRGBArray
