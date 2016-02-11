@@ -6,6 +6,7 @@ START_POSITION = 90
 
 class Servo:
     pwm = None
+    time_to_move = 0
     def __init__(self, channel, freq):
         self.channel = channel
         self.freq = freq
