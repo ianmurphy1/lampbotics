@@ -8,14 +8,14 @@ class Servo:
     def __init__(self, channel, freq):
         self.channel = channel
         self.freq = freq
+        GPIO.setmode(GPIO.BOARD)
+        GPIO.setup(self.channel, GPIO.OUT)
         self.current_position = 0
         self.time_to_move = 3
         self.pwm = GPIO.PWM(self.channel, self.freq)
 
     @classmethod
     def setup_servo(self):
-        GPIO.setmode(GPIO.BOARD)
-        GPIO.setup(self.channel, GPIO.OUT)
         self.pwm.start(6)
         self.move_servo(START_POSITION)
 
