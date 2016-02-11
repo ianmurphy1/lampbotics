@@ -65,7 +65,7 @@ class Runner:
                 self.pan_event.wait()
                 self.pan_event.clear()
                 new_position = convert_for_pan(face_center[0])
-                self.pan_servo_move(new_position)
+                self.pan_servo.move_servo(new_position)
 
     def tilt_servo_thread(self):
         while True:
