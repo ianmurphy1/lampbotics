@@ -64,7 +64,8 @@ class Runner:
                 print 'pan thread'
                 self.pan_event.wait()
                 self.pan_event.clear()
-                new_position = convert_for_pan(face_center[0])
+                pos = face_center[0]
+                new_position = convert_for_pan(pos)
                 print "new position " + str(new_position)
                 self.pan_servo.move_servo(new_position)
 
