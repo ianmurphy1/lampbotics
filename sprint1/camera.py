@@ -17,7 +17,7 @@ class Camera:
         self.camera.resolution = (FRAME_WIDTH, FRAME_HEIGHT)
         self.camera.framerate = FRAME_RATE
         self.rawCapture = PiRGBArray(self.camera, size=FRAME_SIZE)
-        self.cascade = cv2.CascadeClassifier(CASCADES_PATH + FACE_CASCADE_FILE)
+        self.cascade = cv2.CascadeClassifier(FACE_CASCADE_FILE)
 
 
 
