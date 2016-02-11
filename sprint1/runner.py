@@ -87,9 +87,9 @@ class Runner:
         t.daemon = True
         t.start()
 
-        t = Thread(target=self.pan_servo_thread)
-        t.daemon = True
-        t.start()
+        # t = Thread(target=self.pan_servo_thread)
+        # t.daemon = True
+        # t.start()
 
         # t = Thread(target=self.tilt_servo_thread)
         # t.daemon = True
