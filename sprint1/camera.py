@@ -3,7 +3,7 @@ from picamera import PiCamera
 import cv2
 
 CASCADES_PATH = '/home/pi/opencv-3.0.0/data/harrcascades'
-FACE_CASCADE_FILE = '/haarcascade_frontalface_default.xml'
+FACE_CASCADE_FILE = '/home/pi/picode/lampbotics/sprint1/haarcascade_frontalface_default.xml'
 FRAME_WIDTH = 400
 FRAME_HEIGHT = 300
 FRAME_RATE = 60
