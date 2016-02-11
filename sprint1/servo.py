@@ -27,6 +27,7 @@ class Servo:
         self.pwm.start(6)
 
     def move_servo(self, degrees):
+        print "Moving servo to " + str(degrees)
         for i in range(0, 180):
             desired_position1 = degrees
             for j in range(0, self.time_to_move):
