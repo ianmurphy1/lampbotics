@@ -22,6 +22,8 @@ class Runner:
     def __init__(self):
         self.pan_servo = Servo(PAN_CHANNEL, CHANNEL_FREQUENCY)
         self.tilt_servo = Servo(TITLE_CHANNEL, CHANNEL_FREQUENCY)
+        self.pan_servo_move = getattr(self.pan_servo, 'move_servo')
+        self.tilt_servo_move = getattr(self.tilt_servo, 'move_servo')
         self.camera = Camera()
         self.rawCapture = self.camera.rawCapture
         self.pan_event = Event()
@@ -57,7 +59,7 @@ class Runner:
                 self.pan_event.wait()
                 self.pan_event.clear()
                 new_position = convert_for_pan(face_center[0])
-                self.pan_servo.move_servo(new_position)
+                self.pan_servo_move(new_position)
 
     def tilt_servo(self):
         while True:
@@ -66,7 +68,7 @@ class Runner:
                 self.tilt_event.wait()
                 self.tilt_event.clear()
                 new_position = convert_for_tilt(face_center[1])
-                self.tilt_servo.move_servo(new_position)
+                self.tilt_servo_move(new_position)
 
     def run(self):
         self.setup_servos()
@@ -87,8 +89,8 @@ class Runner:
             pass
 
     def setup_servos(self):
-        self.pan_servo.setup_servo()
-        self.tilt_servo.setup_servo()
+        getattr(self.pan_servo, 'setup_servo')()
+        getattr(self.tilt_servo, 'setup_servo')()
 
 
 def convert_for_tilt(num):
