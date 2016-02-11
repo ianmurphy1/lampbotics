@@ -37,7 +37,7 @@ class Runner:
     def detect(self):
         while True:
             global face_center
-            for frame in self.camera.capture_continuous(self.rawCapture, format="bgr", use_video_port=True):
+            for frame in self.camera.camera.capture_continuous(self.rawCapture, format="bgr", use_video_port=True):
                 with self.lock:
                     image = frame.array
                     grey = cv2.cvtColor(image, cv2.COLOR.BGR2GRAY)
