@@ -5,6 +5,7 @@ START_POSITION = 90
 
 
 class Servo:
+    pwm = None
     def __init__(self, channel, freq):
         self.channel = channel
         self.freq = freq
@@ -13,10 +14,10 @@ class Servo:
         self.current_position = 0
         self.time_to_move = 3
         self.pwm = GPIO.PWM(self.channel, self.freq)
+        self.pwm.start(6)
 
     @classmethod
     def setup_servo(self):
-        self.pwm.start(6)
         self.move_servo(START_POSITION)
 
     @classmethod
