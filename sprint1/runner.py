@@ -22,8 +22,8 @@ class Runner:
     def __init__(self):
         self.pan_servo = Servo(PAN_CHANNEL, CHANNEL_FREQUENCY)
         self.tilt_servo = Servo(TITLE_CHANNEL, CHANNEL_FREQUENCY)
-        self.pan_servo_move = getattr(self.pan_servo, 'move_servo')
-        self.tilt_servo_move = getattr(self.tilt_servo, 'move_servo')
+        # self.pan_servo_move = getattr(self.pan_servo, 'move_servo')
+        # self.tilt_servo_move = getattr(self.tilt_servo, 'move_servo')
         self.camera = Camera()
         self.rawCapture = self.camera.rawCapture
         self.pan_event = Event()
@@ -64,18 +64,20 @@ class Runner:
                 print 'pan thread'
                 self.pan_event.wait()
                 self.pan_event.clear()
-                new_position = convert_for_pan(face_center[0])
+                pos = face_center[0]
+                new_position = convert_for_pan(pos)
+                print "new position " + str(new_position)
                 self.pan_servo.move_servo(new_position)
 
     def tilt_servo_thread(self):
         while True:
             global face_center
             with self.lock:
-                print 'pan thread'
+                print 'tilt thread'
                 self.tilt_event.wait()
                 self.tilt_event.clear()
                 new_position = convert_for_tilt(face_center[1])
-                print "new pos" + new_position
+                print "new pos" + str(new_position)
                 self.tilt_servo.move_servo(new_position)
 
     def run(self):
@@ -102,11 +104,13 @@ class Runner:
 
 
 def convert_for_tilt(num):
-    return int(round((num / PAN_DEGREES_PER_PIXEL) + PAN_OFFSET, -1))
+    print "got here"
+    return int(round((num / PAN_DEGREES_PER_PIXEL) + TILT_OFFSET, -1))
 
 
 def convert_for_pan(num):
-    return int(round((num / TILT_DEGREES_PER_PIXEL) + TILT_OFFSET, -1))
+    print "got tilt"
+    return int(round((num / TILT_DEGREES_PER_PIXEL) + PAN_OFFSET, -1))
 
 if __name__ == '__main__':
     Runner().run()
