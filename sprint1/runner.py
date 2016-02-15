@@ -60,9 +60,9 @@ class Runner:
     def pan_servo_thread(self):
         while True:
             global face_center
+            self.pan_event.wait()
             with self.lock:
                 print 'pan thread'
-                self.pan_event.wait()
                 self.pan_event.clear()
                 pos = face_center[0]
                 new_position = convert_for_pan(pos)
@@ -72,9 +72,9 @@ class Runner:
     def tilt_servo_thread(self):
         while True:
             global face_center
+            self.tilt_event.wait()
             with self.lock:
                 print 'tilt thread'
-                self.tilt_event.wait()
                 self.tilt_event.clear()
                 new_position = convert_for_tilt(face_center[1])
                 print "new pos" + str(new_position)
