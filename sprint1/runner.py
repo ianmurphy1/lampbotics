@@ -8,6 +8,7 @@ PAN_CHANNEL = 11
 TITLE_CHANNEL = 18
 CHANNEL_FREQUENCY = 50
 
+# Values used to normalise pixel data to degrees
 PAN_DEGREES_PER_PIXEL = 2.22
 TILT_DEGREES_PER_PIXEL = 2.11
 
@@ -20,21 +21,24 @@ face_center = [FRAME_WIDTH / 2, FRAME_HEIGHT / 2]
 
 class Runner:
     def __init__(self):
+        # Create two servo objects, one for pan, other to tilt
         self.pan_servo = Servo(PAN_CHANNEL, CHANNEL_FREQUENCY)
         self.tilt_servo = Servo(TITLE_CHANNEL, CHANNEL_FREQUENCY)
-        # self.pan_servo_move = getattr(self.pan_servo, 'move_servo')
-        # self.tilt_servo_move = getattr(self.tilt_servo, 'move_servo')
         self.camera = Camera()
         self.rawCapture = self.camera.rawCapture
+        # Create events for pan and tilt
         self.pan_event = Event()
         self.tilt_event = Event()
+        # lock used to lock global data
+        # will not allow execution of code if
+        # lock is in use
         self.lock = Lock()
 
     def detect(self):
         while True:
             global face_center
             for frame in self.camera.camera.capture_continuous(self.rawCapture, format="bgr", use_video_port=True):
-                with self.lock:
+                with self.lock: # lock down face_center array so it cannot be used another function
                     image = frame.array
                     grey = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
                     faces = self.camera.cascade.detectMultiScale(grey, 1.1, 5)
@@ -50,10 +54,10 @@ class Runner:
 
                         if center_face_x != face_center[0]:
                             face_center[0] = center_face_x
-                            self.pan_event.set()
+                            self.pan_event.set() # Set the event so panning can happen
                         if center_face_y != face_center[1]:
                             face_center[1] = center_face_y
-                            self.tilt_event.set()
+                            self.tilt_event.set() # Set the event so panning can happen
 
                     self.rawCapture.truncate(0)
 
@@ -81,21 +85,27 @@ class Runner:
                 self.tilt_servo.move_servo(new_position)
 
     def run(self):
-        self.setup_servos()
+        self.setup_servos() # Function that sets servos up to move to center
 
+        # Create and start a thread where the tilt servo is executed
+        # daemon set to True allows thread to move into background
         t = Thread(target=self.tilt_servo_thread)
         t.daemon = True
         t.start()
 
+        # Create and start a thread where the pano servo is executed
         t = Thread(target=self.pan_servo_thread)
         t.daemon = True
         t.start()
 
+        # Create and start a thread where the detect thread is used
+        # scheduler function in a way, where other threads are given 
+        # permission (events set) to run
         t = Thread(target=self.detect)
         t.daemon = True
         t.start()
 
-        while True:
+        while True: # Infinite loop to allow threads to run
             pass
 
     def setup_servos(self):
